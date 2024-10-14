@@ -41,16 +41,18 @@ class Database
         $this->database = null; // Ferme la connexion
     }
 
-    public function create()
+    public function create($taskName, $taskRecurrence)
     {
         $sql = 'INSERT INTO `tasks` (`task_name`, `task_recurrence`, `task_status`) VALUES (:taskName, :taskRecurrence,0)';
 
         $query = $this->database->prepare($sql);
+        $query->bindValue(':taskName', $taskName, PDO::PARAM_STR);
+        $query->bindValue(':taskRecurrence', $taskRecurrence, PDO::PARAM_INT);
 
-        $query->bindValue(':taskName', $_POST['task'], PDO::PARAM_STR);
-        $query->bindValue(':taskRecurrence', $_POST['status'], PDO::PARAM_INT);
-
-        $query->execute();
+        $query->execute([
+            ':taskName' => $taskName,
+            ':taskRecurrence' => $taskRecurrence
+        ]);
     }
 
     public function read()

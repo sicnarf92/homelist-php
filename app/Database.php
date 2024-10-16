@@ -67,4 +67,16 @@ class Database
         global $result;
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function delete($taskId)
+    {
+        $sql = 'DELETE FROM `tasks` WHERE `task_id` = :taskId';
+
+        $query = $this->database->prepare($sql);
+        $query->bindValue(':taskId', $taskId, PDO::PARAM_INT);
+
+        $query->execute([
+            ':taskId' => $taskId
+        ]);
+    }
 }

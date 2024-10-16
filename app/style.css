@@ -1,0 +1,11 @@
+.task-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#task-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
